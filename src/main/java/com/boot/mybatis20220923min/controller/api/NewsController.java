@@ -10,12 +10,15 @@ import com.boot.mybatis20220923min.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -111,8 +114,13 @@ public class NewsController {
 
         News news = newsRepository.getNews(newsId);
 
+        log.info("{}", news);
+
+
         NewsReadRespDto newsReadRespDto = news.toNewsReadRespDto();
 
         return ResponseEntity.ok(new CMRespDto<>(1, "게시글 불러오기 성공", newsReadRespDto));
     }
+
+
 }
